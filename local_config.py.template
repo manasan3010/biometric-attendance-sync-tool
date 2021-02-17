@@ -9,16 +9,20 @@ ERPNEXT_URL = 'http://dev.local:8000'
 PULL_FREQUENCY = 60 # in minutes
 LOGS_DIRECTORY = 'logs' # logs of this script is stored in this directory
 IMPORT_START_DATE = None # format: '20190501'
+DISABLE_PING = True # Omits the initial ping test for BMS device connectivity over the Internet
 
-# Biometric device configs (all keys mandatory)
+# Biometric device configs (all keys mandatory excluding `employee_attendance_ids`, `port`)
     #- device_id - must be unique, strictly alphanumerical chars only. no space allowed.
     #- ip - device IP Address
+    #- port - device port number, if unspecified defaults to 4370
     #- punch_direction - 'IN'/'OUT'/'AUTO'/None
     #- clear_from_device_on_fetch: if set to true then attendance is deleted after fetch is successful.
                                     #(Caution: this feature can lead to data loss if used carelessly.)
+    #- employee_attendance_ids - if specified, only the included Employee Attendance IDs will be pushed to the server in the future syncs.
+
 devices = [
-    {'device_id':'test_1','ip':'192.168.0.209', 'punch_direction': None, 'clear_from_device_on_fetch': False},
-    {'device_id':'test_2','ip':'192.168.2.209', 'punch_direction': None, 'clear_from_device_on_fetch': False}
+    {'device_id': 'test_1', 'ip': '192.168.0.209', 'punch_direction': None, 'clear_from_device_on_fetch': False},
+    {'device_id': 'test_2', 'ip': '192.168.2.209', 'port': 4370, 'punch_direction': None, 'clear_from_device_on_fetch': False, 'employee_attendance_ids': []}
 ]
 
 # Configs updating sync timestamp in the Shift Type DocType
